@@ -1,0 +1,22 @@
+import com.atlassian.jira.component.ComponentAccessor
+import org.apache.log4j.Logger
+import com.atlassian.jira.issue.fields.CustomField
+import com.atlassian.jira.issue.CustomFieldManager
+import groovy.json.JsonSlurper
+import groovy.json.JsonParserType
+import com.atlassian.jira.issue.Issue
+import com.onresolve.scriptrunner.runner.customisers.ContextBaseScript 
+import groovy.transform.BaseScript
+import com.atlassian.jira.user.ApplicationUser
+
+log.warn("Start Script")
+@BaseScript ContextBaseScript contextBaseScript
+Issue issue = getIssueOrDefault("BASICSDTST-161")
+
+
+def attachmentManager = ComponentAccessor.getAttachmentManager()
+def numberAttachments = attachmentManager.getAttachments(issue).size()
+log.warn numberAttachments
+
+
+return numberAttachments ? numberAttachments as Double : null
