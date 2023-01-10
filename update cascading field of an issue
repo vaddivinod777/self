@@ -1,0 +1,14 @@
+import com.atlassian.jira.component.ComponentAccessor
+import com.atlassian.jira.issue.ModifiedValue
+import com.atlassian.jira.issue.util.DefaultIssueChangeHolder
+
+def changeHolder = new DefaultIssueChangeHolder()
+def issue = ComponentAccessor.getIssueManager().getIssueByCurrentKey('BGC-2176369')
+def customField = ComponentAccessor.getCustomFieldManager().getCustomFieldObject(15317)
+def fieldConfig = customField.getRelevantConfig(issue)
+def parentOption = ComponentAccessor.getOptionsManager().getOptions(fieldConfig)?.find { it.toString() == 'CORI' }
+def childOption = ComponentAccessor.getOptionsManager().findByParentId(parentOption.optionId)?.find { it.toString() == 'CORI on Duplicate Account' }
+def newValue = [:]
+newValue.put(null, parentOption)
+newValue.put("1", childOption)
+customField.updateValue(null, issue, new ModifiedValue(issue.getCustomFieldValue(customField), newValue),changeHolder)
