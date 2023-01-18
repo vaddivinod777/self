@@ -1,0 +1,10 @@
+import com.atlassian.jira.issue.MutableIssue
+import com.atlassian.jira.component.ComponentAccessor
+
+
+def issueManager = ComponentAccessor.getIssueManager()
+MutableIssue issue = issueManager.getIssueObject("EAS-1250")
+
+//return issue.getSummary();
+//return issue.getPriority().name;
+return issue.getCreated()
