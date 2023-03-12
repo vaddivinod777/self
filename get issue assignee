@@ -1,0 +1,6 @@
+import com.atlassian.jira.component.ComponentAccessor
+import com.atlassian.jira.issue.Issue
+
+Issue issue = ComponentAccessor.getIssueManager().getIssueObject("EAS-44974")
+def assignee = issue.getAssignee().getDisplayName()
+log.warn(assignee)
